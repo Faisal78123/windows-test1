@@ -1,0 +1,11 @@
+name: blank
+on:
+  push:
+jobs:
+  blank:
+    runs-on: self-hosted
+    steps:
+      - name: MyCommands
+        run: |
+          echo Hello
+          echo World
