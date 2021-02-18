@@ -1,11 +1,20 @@
-name: blank
 on:
-  push:
+  pull_request:
+    branches: [ master ]
+
 jobs:
-  blank:
+  build:
+    name: PULL REQUEST BUILD FOR Zircon
+    timeout-minutes: 60
+
     runs-on: self-hosted
     steps:
-      - name: MyCommands
-        run: |
-          echo Hello
-          echo World
+      - name: Check out repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          submodules: true
+          ssh-key: ${{ secrets.BUILD_KEY }}
+
+      - name: Checkout submodules
+        run: git submodule update --init --recursive
